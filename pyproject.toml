@@ -45,5 +45,6 @@ exclude = [
 ]
 
 [tool.maturin]
-module-name = "multiharp_toolkit_rs"
+module-name = "multiharp_toolkit._mhtk_rs"
 features = ["pyo3/extension-module"]
+python-source = "src"
