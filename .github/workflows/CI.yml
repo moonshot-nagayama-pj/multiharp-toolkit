@@ -82,7 +82,8 @@ jobs:
           echo "Listing files"
           ls 
           echo "Installing MHLib"
-          Start-Process -FilePath '.\MultiHarp150_160_V3_1\MHLib v3.1.0.0\Windows\installation\setup.exe' -ArgumentList '/silent' -Wait
+          cd '.\MultiHarp150_160_V3_1\MHLib v3.1.0.0\Windows\installation' 
+          setup.exe /VERYSILENT /NORESTART /LOG
 
       - uses: actions/cache@v3
         with:
