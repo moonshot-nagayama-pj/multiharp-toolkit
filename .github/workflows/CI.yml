@@ -48,6 +48,7 @@ jobs:
         run: ./install_mhlib.sh
       - name: Save mhlib
         uses: actions/cache/save@v3
+        if: steps.cache-mhlib.outputs.cache-hit != 'true'
         with:
           path: |
             MHLib_v3.1.0.0_64bit
@@ -86,6 +87,7 @@ jobs:
           curl -O https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
       - name: Save mhlib
         uses: actions/cache/save@v3
+        if: steps.cache-mhlib.outputs.cache-hit != 'true'
         with:
           path: |
             MultiHarp150_160_V3_1.zip 
