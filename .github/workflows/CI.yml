@@ -24,7 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-        - run: |
         rustup component add clippy
         rustup component add rustfmt
       - run: cargo fmt --all -- --check
