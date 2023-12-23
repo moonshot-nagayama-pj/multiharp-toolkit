@@ -83,7 +83,8 @@ jobs:
           ls 
           echo "Installing MHLib"
           cd '.\MultiHarp150_160_V3_1\MHLib v3.1.0.0\Windows\installation' 
-          setup.exe /VERYSILENT /NORESTART /LOG
+          ls
+          ./setup.exe /VERYSILENT /NORESTART /LOG
 
       - uses: actions/cache@v3
         with:
