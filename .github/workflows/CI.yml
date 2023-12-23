@@ -26,6 +26,24 @@ jobs:
       - run: |
           rustup component add clippy
           rustup component add rustfmt
+      - run: sudo apt update && sudo apt install -y llvm-dev libclang-dev clang
+      - name: Restore cached mhlib
+        id: cache-mhlib
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            MHLib_v3.1.0.0_64bit
+          key: ${{ runner.os }}-mhlib
+      - name: install mhlib
+        if: steps.cache-mhlib.outputs.cache-hit != 'true'
+        run: ./install_mhlib.sh
+      - name: Save mhlib
+        uses: actions/cache/save@v3
+        if: steps.cache-mhlib.outputs.cache-hit != 'true'
+        with:
+          path: |
+            MHLib_v3.1.0.0_64bit
+          key: ${{ runner.os }}-mhlib
       - run: cargo fmt --all -- --check
       - run: cargo clippy -- -D warnings
       - run: cargo test
