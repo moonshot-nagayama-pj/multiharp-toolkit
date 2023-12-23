@@ -76,8 +76,9 @@ jobs:
       - name: install MHLib
         run: |
           curl -O https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
-          Expand-Archive -Path MultiHarp150_160_V3_1.zip -DestinationPath .
-          # run the installer
+          ls
+          Expand-Archive -Path MultiHarp150_160_V3_1.zip 
+          ls 
           Start-Process -FilePath '.\MultiHarp150_160_V3_1\MHLib v3.1.0.0\Windows\installation\setup.exe' -ArgumentList '/S' -Wait
 
       - uses: actions/cache@v3
