@@ -34,17 +34,24 @@ jobs:
           path: |
             MHLib_v3.1.0.0_64bit
           key: ${{ runner.os }}-mhlib
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: install mhlib
         if: steps.cache-mhlib.outputs.cache-hit != 'true'
         run: ./install_mhlib.sh
-      - name: Save Primes
-        id: cache-primes-save
+      - name: Save mhlib
         uses: actions/cache/save@v3
         with:
           path: |
             MHLib_v3.1.0.0_64bit
           key: ${{ runner.os }}-mhlib
-
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -66,6 +73,20 @@ jobs:
         with:
           python-version: '3.11'
           architecture: x64
+      - name: install MHLib
+        run: |
+          curl -O https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
+          Expand-Archive -Path MultiHarp150_160_V3_1.zip -DestinationPath .
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
