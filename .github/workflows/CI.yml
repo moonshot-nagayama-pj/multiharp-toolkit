@@ -27,6 +27,15 @@ jobs:
           rustup component add clippy
           rustup component add rustfmt
       - run: sudo apt update && sudo apt install -y llvm-dev libclang-dev clang
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - name: Restore cached mhlib
         id: cache-mhlib
         uses: actions/cache/restore@v3
