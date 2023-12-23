@@ -73,17 +73,32 @@ jobs:
         with:
           python-version: '3.11'
           architecture: x64
-      - name: install MHLib
+      - name: Restore cached mhlib
+        id: cache-mhlib
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            MultiHarp150_160_V3_1.zip 
+          key: ${{ runner.os }}-mhlib-zip
+      - name: download MHLib
+        if: steps.cache-mhlib.outputs.cache-hit != 'true'
         run: |
           curl -O https://www.picoquant.com/dl_software/MultiHarp150/MultiHarp150_160_V3_1.zip
-          ls
-          echo "Unzipping MHLib"
+      - name: Save mhlib
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            MultiHarp150_160_V3_1.zip 
+          key: ${{ runner.os }}-mhlib-zip
+      - name: install MHLib
+        run: |
+          # Downloading MHLib
+
+          # Unzipping MHLib
           Expand-Archive -Path MultiHarp150_160_V3_1.zip 
-          echo "Listing files"
-          ls 
-          echo "Installing MHLib"
+
+          # install MHLib silently. see the detail here: https://jrsoftware.org/ishelp/index.php?topic=setupcmdline
           cd '.\MultiHarp150_160_V3_1\MHLib v3.1.0.0\Windows\installation' 
-          ls
           ./setup.exe /VERYSILENT /NORESTART /LOG
 
       - uses: actions/cache@v3
