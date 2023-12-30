@@ -5,6 +5,7 @@ use nom::error::ErrorKind;
 use nom::multi::many_till;
 use nom::number::complete::{le_f64, le_i32, le_i64, le_u32, le_u64};
 use nom::IResult;
+use pyo3::prelude::*;
 use std::str;
 
 #[derive(Debug)]
@@ -22,6 +23,7 @@ pub enum TagType {
     BinaryBlob,
 }
 
+#[pyclass]
 #[derive(Debug)]
 pub struct PQTimeTaggedData {
     pub version: String,
@@ -35,6 +37,7 @@ pub struct TagHeader {
     pub typ: TagType,
 }
 
+#[pyclass]
 #[derive(Debug)]
 pub struct EventRecord {
     pub special: u8,
